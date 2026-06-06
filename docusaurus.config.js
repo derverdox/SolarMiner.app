@@ -18,7 +18,7 @@ const config = {
         },
         blog: false, // Wir brauchen keinen Blog
         theme: {
-          customCss: [], // Keine extra CSS-Datei nötig für den Start
+          //customCss: [], // Keine extra CSS-Datei nötig für den Start
         },
       },
     ],
