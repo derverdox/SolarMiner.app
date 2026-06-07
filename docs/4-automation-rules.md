@@ -106,3 +106,13 @@ Let's say you want to build a safe "Start Mining" rule that respects your home b
   * **Predicate 2:** `MEAN` from `PV_SURPLUS` `>=` `2.5` (since 10 Minutes)
 
 With this setup, passing clouds won't shut off your miner, and short sun rays won't drain your battery!
+
+---
+
+## ⚠️ Legal Disclaimer & Liability
+
+:::warning Disclaimer
+**The Solar Miner App and its automation engine are provided "as is".** While this tool is designed to automatically scale your mining hardware based on your local PV data, **you are solely responsible for monitoring your setup.** Factors outside of the application's control—such as local network outages, inverter API changes, hardware faults, or misconfigured automation rules—can lead to unintended behavior (e.g., completely draining your home battery, or importing expensive grid power). 
+
+The developers of the Solar Miner App assume **no liability** for any financial losses, hardware damage, increased electricity bills, or missed mining rewards. By using the automation rules, you agree that you must regularly verify your dashboards, test your rules thoroughly, and actively supervise your hardware to ensure everything is operating safely and as intended.
+:::
