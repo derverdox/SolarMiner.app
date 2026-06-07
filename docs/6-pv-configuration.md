@@ -1,4 +1,4 @@
-vvv---
+---
 id: pv-configuration
 title: PV Array Setup & Forecasting
 sidebar_label: 5.2 PV Array & Forecast
