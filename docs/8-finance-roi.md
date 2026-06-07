@@ -12,20 +12,20 @@ keywords: [solar bitcoin mining ROI, ASIC amortization calculator, missed export
 Is your solar mining operation actually profitable? The **Finance Dashboard** gives you the exact answer by factoring in hardware costs, Bitcoin earnings, and crucial opportunity costs[cite: 19].
 
 ## 💰 Investment Tracking
-To calculate an accurate Return on Investment (ROI), you can log your initial setup costs[cite: 19]:
-* **PV System Cost:** Enter the total cost and setup date of your solar array[cite: 19].
-* **Hardware Costs:** Assign individual purchase prices to each ASIC miner in your cluster[cite: 19].
+To calculate an accurate Return on Investment (ROI), you can log your initial setup costs:
+* **PV System Cost:** Enter the total cost and setup date of your solar array.
+* **Hardware Costs:** Assign individual purchase prices to each ASIC miner in your cluster.
 
-The dashboard combines these into a **Total Investment** KPI[cite: 19].
+The dashboard combines these into a **Total Investment** KPI.
 
 ## 📅 Daily Amortization & Net Profit
-The core of the Finance page is the historical amortization grid[cite: 19]. For every day of operation, the app calculates your **Net Mining Profit** by processing:
-1. **Power Usage:** Total kWh consumed by your miners[cite: 19].
-2. **BTC Earnings:** The actual Bitcoin rewarded by your pool[cite: 19].
-3. **Gross Revenue:** The fiat value of your mined Bitcoin on that specific day[cite: 19].
-4. **Missed Export Earnings:** The amount of fiat money you *would have earned* if you sold that consumed power to the grid[cite: 19].
+The core of the Finance page is the historical amortization grid. For every day of operation, the app calculates your **Net Mining Profit** by processing:
+1. **Power Usage:** Total kWh consumed by your miners.
+2. **BTC Earnings:** The actual Bitcoin rewarded by your pool.
+3. **Gross Revenue:** The fiat value of your mined Bitcoin on that specific day.
+4. **Missed Export Earnings:** The amount of fiat money you *would have earned* if you sold that consumed power to the grid.
 
-**Net Profit** = Gross Revenue - Missed Export Earnings[cite: 19].
+**Net Profit** = Gross Revenue - Missed Export Earnings.
 
 ## 📊 Global ROI Progress
-By taking your absolute net profit and comparing it against your total hardware investments, the dashboard displays a real-time **ROI Progress percentage**, showing you exactly how close you are to breaking even[cite: 19].
+By taking your absolute net profit and comparing it against your total hardware investments, the dashboard displays a real-time **ROI Progress percentage**, showing you exactly how close you are to breaking even.
