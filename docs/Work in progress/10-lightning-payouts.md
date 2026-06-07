@@ -1,7 +1,7 @@
 ---
 id: lightning-payouts
 title: Automatic Lightning Payouts (WIP)
-sidebar_label: 6. Lightning Payouts (WIP)
+sidebar_label: 10. Lightning Payouts (WIP)
 sidebar_position: 6
 description: The future of solar mining payouts. Learn how the Solar Miner App is integrating local Lightning Nodes and BOLT12 addresses for instant, fee-less Bitcoin payouts from the Braiins Pool.
 keywords: [Bitcoin Lightning Payout, Braiins Pool Lightning, BOLT12 Mining, Solar Miner Node, Instant ASIC Payouts, Lightning Network Mining]
