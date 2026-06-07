@@ -20,8 +20,8 @@ To solve this, we are currently developing the ultimate payout solution: **Direc
 We are building a bridge between your local PV Miner instance and our live backend infrastructure to host and manage Lightning Network routing for you.
 
 1. **Local Lightning Node integration:** The Solar Miner App will interface directly with a lightning node setup.
-2. **Static BOLT12 Addresses:** Through our backend, every user will be able to generate a static, reusable **BOLT12 Lightning Offer Address** (e.g., `pv_miner_node_94@phoenixwallet.me`).
-3. **Plug & Play with Braiins:** You simply paste this BOLT12 address into your Braiins Pool payout settings.
+2. **Static BOLT12 Addresses:** Through our backend, every user will be able to generate a static, reusable **BOLT11/BOLT12 Lightning Offer Address** (e.g., `pv_miner_node_94@solarminer.app.me`).
+3. **Plug & Play with Braiins:** You simply paste this BOLT11 address into your Braiins Pool payout settings.
 4. **Streaming Money:** As your ASICs hash on solar energy, the Braiins Pool streams your earnings instantly and daily over the Lightning Network directly into your Solar Miner Wallet.
 
 ## 📊 The Lightning Dashboard
@@ -36,4 +36,4 @@ Once released, you will have access to a dedicated Lightning Wallet View inside 
 
 *Please note that this feature is currently heavily under development.* Managing Lightning channels, inbound liquidity, and routing fees requires constant active management on our backend. Therefore, once released, this feature will likely include a small, transparent service fee or a fixed-tier pricing model to maintain the node infrastructure. 
 
-Stay tuned to our [Discord Community](#) for beta-testing announcements regarding the BOLT12 integration!
+Stay tuned to our [Discord Community](#) for beta-testing announcements regarding the BOLT11/BOLT12 integration!
