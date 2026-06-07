@@ -3,6 +3,7 @@ id: intro
 title: Introduction
 sidebar_label: 1. Introduction
 sidebar_position: 1
+slug: /
 ---
 
 # Welcome to Solar Miner
