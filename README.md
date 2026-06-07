@@ -51,19 +51,11 @@ For detailed installation instructions, API documentation, and Modbus configurat
 
 ---
 
-## 🛡️ Security & Antivirus False Positives
-
-Because this application routes hashrate and communicates with mining hardware, some aggressive Antivirus software (like Windows Defender) might flag the executable as a "CoinMiner" or "PUP" (Potentially Unwanted Program). 
-
-This is a known false positive for mining management software. For detailed instructions on how to safely whitelist the application, please refer to our [Security & Whitelisting Guide](https://docs.solarminer.app/security).
-
----
-
 ## 💬 Support & Community
 
 *   **Documentation:** [docs.solarminer.app](https://docs.solarminer.app)
 *   **Website:** [solarminer.app](https://solarminer.app)
-*   **Bug Reports:** Please use the [GitHub Issues](https://github.com/your-org/solar-miner-docs/issues) tab in this repository.
+*   **Bug Reports:** Please use the [GitHub Issues](https://github.com/derverdox/SolarMiner.app/issues) tab in this repository.
 
 ***
 
