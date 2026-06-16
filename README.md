@@ -42,7 +42,7 @@ Because Solar Miner natively supports Braiins OS, you can point your hashrate to
 Getting started takes less than 10 minutes. You will need:
 1. An ASIC running **Braiins OS+**
 2. A way to read your solar surplus (e.g., Home Assistant, or a Modbus TCP enabled Inverter/Smart Meter)
-3. A local machine (Raspberry Pi, Mini PC, Windows/Linux/macOS) to run the Solar Miner App.
+3. A local x86 machine that runs docker to run the Solar Miner App.
 
 ### 📖 Read the Documentation
 For detailed installation instructions, API documentation, and Modbus configuration guides, please visit our official documentation:
