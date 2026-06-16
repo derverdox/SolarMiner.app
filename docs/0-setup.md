@@ -16,7 +16,7 @@ To ensure a smooth operation of the Java-based microservices, databases, and the
 
 | Component | Minimum Specification |
 | :--- | :--- |
-| **CPU** | Intel N95 (Quad-Core) or equivalent |
+| **CPU** | Intel N95 (Quad-Core) or equivalent (Only x86 supported) |
 | **RAM** | 16 GB (8 GB minimum for smaller deployments) |
 | **Storage** | 256 GB SSD (Recommended for database I/O performance) |
 | **OS** | Linux (Ubuntu Server 22.04 LTS or newer recommended) |
