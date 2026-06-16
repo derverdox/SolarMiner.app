@@ -68,7 +68,7 @@ You can nest multiple conditions into groups to handle complex scenarios.
 
 ## 4. Dynamic Value Expressions (New Feature)
 
-Instead of setting static wattage limits (like "Run at 1500W"), the new DSL allows you to calculate power targets dynamically in real-time based on the weather. 
+Instead of setting static wattage limits (like "Run at 1500W"), the DSL allows you to calculate power targets dynamically in real-time. 
 
 * **`Constant`:** A fixed, fallback value (e.g., `1000` Watts).
 * **`ClusterCapacityPercentage`:** Targets a percentage of your total possible hardware limit (e.g., `0.5` = 50% cluster capacity).
