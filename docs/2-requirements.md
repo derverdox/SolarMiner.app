@@ -10,11 +10,13 @@ keywords: [Braiins OS install, flash Braiins OS Antminer, Braiins Pool setup, St
 # Requirements & Compatibility
 
 To ensure the Solar Miner App runs flawlessly and scales your hashrate with zero latency, we have optimized the software for specific, industry-standard hardware and protocols. 
+Because the software also tracks your data all the time and calculates financial statistics we suggest to run this software 24/7 on your homeserver.
 
 Here is what you need to get started:
 
 ## 1. Mining Hardware & OS
 The Solar Miner App relies on advanced API controls to tune ASIC frequencies and voltages on the fly. Therefore, standard factory firmware is not supported.
+We plan on integrating more mining OS in the future.
 
 * **Supported Firmware:** **Braiins OS / Braiins OS+** (Mandatory)
 * **Supported ASICs:** Any Bitcoin ASIC model officially supported by Braiins OS (e.g., Antminer S19 series, S21 series, etc.).
@@ -58,24 +60,6 @@ If your ASIC has locked control boards (common on newer Antminer S19 models) and
 :::
 
 ---
-
-## 6. Configuring the Braiins Pool
-Once Braiins OS is installed, you need to point your hash rate to the Braiins Pool to activate the **0% pool fee** benefit.
-
-### Step 1: Create a Braiins Pool Account
-If you don't have one yet, go to [pool.braiins.com](https://pool.braiins.com) and create a free account. Note your **Username**, as you will need it for the worker configuration.
-
-### Step 2: Access the Miner Web Interface
-1. Open your web browser and enter the local IP address of your ASIC.
-2. Log in to the Braiins OS dashboard. (The default credentials are usually `root` / `root`).
-
-### Step 3: Enter the Stratum URLs
-Navigate to **Configuration > Pools** in the Braiins OS menu. Replace the default pools with the official Braiins Pool Stratum servers. Choose the server closest to your geographical location for the lowest latency:
-
-* **Europe:** `stratum+tcp://eu.stratum.braiins.com:3333`
-* **North America:** `stratum+tcp://na.stratum.braiins.com:3333`
-* **Russia:** `stratum+tcp://ru.stratum.braiins.com:3333`
-* **China:** `stratum+tcp://cn.stratum.braiins.com:3333`
 
 ### Step 4: Configure Your Worker
 In the **User** field, enter your Braiins Pool username followed by a period and a worker name of your choice (e.g., `YourUsername.Miner01`). The **Password** field can usually be left blank or filled with an `x`.
