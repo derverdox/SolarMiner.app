@@ -94,7 +94,7 @@ Every inverter brand has its own unique Modbus registers and API structures. To 
 :::info Join our Discord Server!
 Did you successfully map the registers for a specific Huawei, Growatt, or Solax inverter? Or are you struggling to find the right Home Assistant JSON paths? 
 
-**[Join the official Solar Miner Discord Server (Click Here)](#)**
+**[Join the official Solar Miner Discord Server (Click Here)](https://discord.solarminer.app/)**
 
 We have dedicated channels where users can **upload, download, and share their `.json` configuration files**. You can simply download a community-tested config, click the **Import** button in the app, and have your PV data flowing in seconds!
 :::
