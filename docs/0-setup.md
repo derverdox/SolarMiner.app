@@ -64,7 +64,7 @@ services:
   frontend:
     image: verdox/solar-miner
     ports:
-      - "8080:8080"
+      - "80:8080"
     depends_on:
       - mariadb-frontend
       - influxdb-frontend
@@ -75,6 +75,7 @@ services:
     env_file:
       - .env
     environment:
+      - SPRING_PROFILES_ACTIVE=production
       - INFLUXDB_URL=http://influxdb-frontend:8086
       - MYSQL_URL=jdbc:mariadb://mariadb-frontend:3306/solarminer
       - CURRENCY_MICRO_SERVICE_URL=http://currency-service:8080
@@ -88,11 +89,6 @@ services:
       - INFLUXDB_BUCKET=solarminer
       - MYSQL_USER=solarminer
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    entrypoint:
-      - java
-      - -Dspring.profiles.active=production
-      - -jar
-      - ./pv-miner.jar
     volumes:
       - ./app/frontend/app:/app/storage
       - ./app/phoenixd:/app/phoenixd:ro
@@ -134,11 +130,10 @@ services:
       - "8086:8086"
 
   currency-service:
-    image: verdox/currency-rates-api:latest
+    image: verdox/currency-rates-api:latest-amd64
+    user: "0:0"
     ports:
       - "8081:8080"
-    depends_on:
-      - mariadb-currency-service
     restart: unless-stopped
     env_file:
       - .env
@@ -146,30 +141,9 @@ services:
       MYSQL_URL: jdbc:mariadb://mariadb-currency-service:3306/currency_rates
       MYSQL_USER: currency_rates
       MYSQL_PASSWORD: ${CURRENCY_DB_PASSWORD}
-    entrypoint:
-      - java
-      - -Dspring.profiles.active=production
-      - -jar
-      - ./currency-rates.jar
     volumes:
       - ./app/currency/backend:/app/storage
-
-  mariadb-currency-service:
-    image: mariadb:latest
-    container_name: mariadb-currency-service
-    restart: always
-    env_file:
-      - .env
-    environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_DATABASE: currency_rates
-      MYSQL_USER: currency_rates
-      MYSQL_PASSWORD: ${CURRENCY_DB_PASSWORD}
-    ports:
-      - "3307:3306"
-    volumes:
-      - ./app/currency/mariadb:/var/lib/mysql
-
+      - ./app/currency/backend/h2:/workspace/data
   core:
     image: verdox/solar-miner-core:latest-amd64
     ports:
@@ -187,6 +161,7 @@ services:
       - "127.0.0.1:9740:9740"
     volumes:
       - ./app/phoenixd:/root/.phoenix
+
 ```
 
 
