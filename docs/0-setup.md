@@ -171,7 +171,7 @@ services:
       - ./app/currency/mariadb:/var/lib/mysql
 
   core:
-    image: verdox/solar-miner-core:latest
+    image: verdox/solar-miner-core:latest-amd64
     ports:
       - "8082:8080"
     restart: unless-stopped
