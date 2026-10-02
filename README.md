@@ -1,62 +1,23 @@
-# ☀️ Solar Miner App
+# SolarMiner documentation / Dokumentation
 
-> **Stop selling cheap electricity. Start mining smarter.**  
-> Automate your Bitcoin ASICs to perfectly match your solar surplus.
+[Deutsch](https://docs.solarminer.app/) · [English](https://docs.solarminer.app/en/)
 
-[![Website](https://img.shields.io/badge/Website-solarminer.app-00FFA3?style=flat-square)](https://solarminer.app)
-[![Docs](https://img.shields.io/badge/Docs-Read_Here-F7931A?style=flat-square)](https://docs.solarminer.app)
-[![License](https://img.shields.io/badge/License-Proprietary-blue?style=flat-square)](https://solarminer.app/terms)
+## English
 
-The **Solar Miner App** is a local-first automation tool that dynamically scales your ASIC's power consumption based on real-time solar production. Instead of shutting down your miners when a cloud passes by, our app dials down the hashrate, keeping your machines online and profitable for significantly longer.
+This repository contains the public SolarMiner documentation for Node operators, PC Agent users, and partners in the referrer portal. Docusaurus builds the German source pages in `docs/` and their complete English translations in `i18n/en/docusaurus-plugin-content-docs/current/`. Downloadable Compose examples are shared between both languages under `static/examples/`.
 
----
+The Docusaurus build and deployment run through `.github/workflows/deploy.yml` on GitHub Pages. Edit the source files; generated directories such as `node_modules/`, `.docusaurus/`, and `build/` do not belong in the repository. The Node and PC Agent examples are snapshots of the files in the [Solar-Miner-Node repository](https://github.com/Solarminer-app/Solar-Miner-Node). Compare them with upstream whenever images, services, ports, or environment variables change. Check referral and pool-credit claims against the current [admin portal](https://portal.solarminer.app) and pool data. The [maintainer review note](MAINTAINERS.en.md) lists the sources and remaining verification limits.
 
-## ⚡ The Uptime Advantage
+Report documentation errors through an issue in this repository. Report Node defects in the [Node repository](https://github.com/Solarminer-app/Solar-Miner-Node/issues).
 
-Traditional smart-home setups rely on simple "On/Off" relay switches. If your solar production drops below your ASIC's minimum threshold, the miner shuts down completely. **You mine zero Bitcoin.**
+## Deutsch
 
-**With Solar Miner:** We communicate directly with your ASIC's control board. As solar production drops, we dynamically lower the frequency and voltage. Your miner stays online, generating Bitcoin continuously throughout the day, drastically improving your ROI.
+Dieses Repository enthält die öffentliche [SolarMiner-Dokumentation](https://docs.solarminer.app) für Betreiber einer Node, Nutzer des PC-Agents und Partner im Referrer-Portal. Die deutschen Quellseiten liegen in `docs/`, die vollständigen englischen Übersetzungen in `i18n/en/docusaurus-plugin-content-docs/current/`. Herunterladbare Compose-Beispiele liegen für beide Sprachen in `static/examples/`.
 
-## ✨ Key Features
+## Veröffentlichung
 
-*   **🧠 Braiins OS Native:** Built from the ground up for Braiins OS. We utilize native APIs for zero-latency power tuning.
-*   **🔌 Universal Inverter Support:** Fetch live PV data via **Home Assistant**, **REST API**, or directly map your own **Modbus TCP** registers (supports Fronius, SMA, Victron, Huawei, and more).
-*   **🔒 100% Local-First:** No cloud accounts required. The software runs entirely on your local network. Your telemetry and miner access never leave your house.
-*   **📈 Built-In Amortization:** Track your exact break-even points, historical profits, and real-time efficiency metrics in a beautiful, local dashboard.
+Der Docusaurus-Build und die Veröffentlichung laufen über `.github/workflows/deploy.yml` auf GitHub Pages. Bearbeite die Quelldateien in `docs/`, `static/` und die Docusaurus-Konfiguration; generierte Verzeichnisse wie `node_modules/`, `.docusaurus/` und `build/` gehören nicht ins Repository.
 
----
+Die Node- und PC-Agent-Beispiele sind Momentaufnahmen der Compose-Dateien im [Solar-Miner-Node-Repository](https://github.com/Solarminer-app/Solar-Miner-Node). Vergleiche sie bei Änderungen an Images, Diensten, Ports oder Umgebungsvariablen mit dem aktuellen Upstream. Aussagen zu Referrals und Pool-Gutschriften müssen mit dem tatsächlichen [Admin-Portal](https://portal.solarminer.app) und den jeweiligen Pool-Daten übereinstimmen. Der [Prüfvermerk](MAINTAINERS.md) nennt die für diese Überarbeitung verwendeten Quellen und offene Verifikationspunkte.
 
-## 💰 Pricing & The 0% Pool Fee Synergy
-
-We believe in a "Zero Upfront Costs" model. There are no monthly subscriptions and no credit cards required.
-
-**The Dev Fee:** Solar Miner takes a transparent **2.5% developer fee** (directed hashrate). We only succeed when your hardware is actually running and generating Bitcoin. If the sun isn't shining, you pay absolutely nothing.
-
-**🔥 Pro Tip: Mine for 0% Pool Fees!**
-Because Solar Miner natively supports Braiins OS, you can point your hashrate to the **Braiins Pool** to take advantage of their 0% pool fee offer. The pool fee you save essentially pays for our automation tool!
-
----
-
-## 🚀 Quick Start
-
-Getting started takes less than 10 minutes. You will need:
-1. An ASIC running **Braiins OS+**
-2. A way to read your solar surplus (e.g., Home Assistant, or a Modbus TCP enabled Inverter/Smart Meter)
-3. A local x86 machine that runs docker to run the Solar Miner App.
-
-### 📖 Read the Documentation
-For detailed installation instructions, API documentation, and Modbus configuration guides, please visit our official documentation:
-
-👉 **[docs.solarminer.app](https://docs.solarminer.app)**
-
----
-
-## 💬 Support & Community
-
-*   **Documentation:** [docs.solarminer.app](https://docs.solarminer.app)
-*   **Website:** [solarminer.app](https://solarminer.app)
-*   **Bug Reports:** Please use the [GitHub Issues](https://github.com/derverdox/SolarMiner.app/issues) tab in this repository.
-
-***
-
-*Built for Miners. Local First. Non-Custodial. Bitcoin Native.*
+Fragen oder Fehler zur Dokumentation können als Issue in diesem Repository gemeldet werden. Node-Fehler gehören in das [Node-Repository](https://github.com/Solarminer-app/Solar-Miner-Node/issues).

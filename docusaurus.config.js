@@ -1,10 +1,22 @@
+const isEnglish = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
+
 const config = {
-  title: 'Solar Miner App',
-  tagline: 'Stop wasting solar energy. Start mining smarter.',
+  title: isEnglish ? 'SolarMiner Documentation' : 'SolarMiner Dokumentation',
+  tagline: isEnglish
+    ? 'Set up and understand the Node, PC Agent, and partner portal.'
+    : 'Node, PC-Agent und Partnerportal einrichten und verstehen.',
   url: 'https://docs.solarminer.app',
   baseUrl: '/',
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'throw',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
+  i18n: {
+    defaultLocale: 'de',
+    locales: ['de', 'en'],
+  },
   organizationName: 'derverdox',
   projectName: 'solar-miner-docs',
 
@@ -13,13 +25,10 @@ const config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/', // Lädt die Docs direkt auf der Hauptseite
+          routeBasePath: '/', // Dokumentation direkt unter der Domain
           sidebarPath: require.resolve('./sidebars.js'),
         },
-        blog: false, // Wir brauchen keinen Blog
-        theme: {
-          //customCss: [], // Keine extra CSS-Datei nötig für den Start
-        },
+        blog: false,
       },
     ],
   ],
@@ -31,11 +40,20 @@ const config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Solar Miner Docs',
+      title: isEnglish ? 'SolarMiner Documentation' : 'SolarMiner Dokumentation',
       items: [
         {
           href: 'https://solarminer.app',
-          label: 'Back to Website',
+          label: 'Website',
+          position: 'right',
+        },
+        {
+          href: 'https://portal.solarminer.app',
+          label: isEnglish ? 'Partner portal' : 'Partnerportal',
+          position: 'right',
+        },
+        {
+          type: 'localeDropdown',
           position: 'right',
         },
       ],
