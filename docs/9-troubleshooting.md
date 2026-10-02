@@ -1,28 +1,28 @@
 ---
-title: Fehlersuche
+title: Troubleshooting
 sidebar_position: 10
 slug: /troubleshooting
-description: Häufige Probleme bei Start, PV-Messung, Proxy, Agent und Pool-Abrechnung.
+description: Common startup, PV measurement, proxy, Agent, and pool accounting problems.
 ---
 
-# Fehlersuche
+# Troubleshooting
 
-## Node startet nicht
+## The Node does not start
 
-Führe im Compose-Verzeichnis `docker compose config --quiet`, `docker compose ps` und `docker compose logs --tail=150 frontend core stratum-proxy` aus. Prüfe, ob `.env` vollständig ist, Port `8080` frei ist und die Datenbank-/Influx-Container laufen. Der Currency-Service braucht seine **eigene MariaDB**; ein Compose ohne `mariadb-currency-service` passt nicht zur hier verwendeten Node-Konfiguration. Prüfe Dateirechte für `app/frontend/app` und den UID/GID-Wert.
+From the Compose directory, run `docker compose config --quiet`, `docker compose ps`, and `docker compose logs --tail=150 frontend core stratum-proxy`. Check that `.env` is complete, port `8080` is available, and the database and InfluxDB containers are running. The currency service needs **its own MariaDB**; a Compose file without `mariadb-currency-service` does not match the Node configuration documented here. Check permissions on `app/frontend/app` and the UID/GID settings.
 
-## PV-Werte fehlen oder sind unplausibel
+## PV values are missing or implausible
 
-Teste die Erreichbarkeit des Geräts aus dem Container-Netz. Prüfe Modbus-Adresse, Registertyp, Byte-Reihenfolge, Skalierung, Einheit und Einspeise-/Bezugs-Vorzeichen. Bei REST/MQTT/WebSocket zusätzlich Pfad/Topic und Authentifizierung prüfen. Schalte die Automatik erst ein, wenn Werte und Zeitverlauf mit dem echten Zähler übereinstimmen.
+Test whether the device is reachable from the container network. Check the Modbus address, register type, byte order, scaling, units, and grid import/export sign. For REST, MQTT, or WebSocket, also check the path or topic and authentication. Enable automation only after readings and trends agree with the actual meter.
 
-## Miner verbindet sich nicht mit dem Pool
+## A miner cannot connect to the pool
 
-Prüfe Proxy-Status, konfigurierten Coin, Pool-Adresse, Worker und den geladenen Gebührenweg. Core nutzt standardmäßig `host.docker.internal:8090` für die Proxy-API; der Proxy nutzt im Compose Host-Networking. Beim PC-Agent zeigt die Mining-Konsole Start- und Verbindungsfehler. Eine veraltete Direktpool-Konfiguration oder ein nicht erreichbarer externer Proxy kann den Start verhindern. Falls der Proxy in Ordnung ist, vergleiche angenommene Shares und Gutschriften im **Poolkonto**.
+Check proxy status, the configured coin, pool address, worker, and loaded fee route. Core uses `host.docker.internal:8090` for the proxy API by default; the proxy uses host networking in the Compose example. The PC Agent's Mining console shows startup and connection errors. An outdated direct-pool configuration or unreachable external proxy may block startup. If the proxy is healthy, compare accepted shares and credits in the **pool account**.
 
-## GPU wird im PC-Agent nicht gefunden
+## The PC Agent cannot find a GPU
 
-Im Linux-Container reicht die Basis-Compose keine GPU durch. Für NVIDIA sind Toolkit und GPU-Overlay nötig; für AMD das passende OpenCL-System und AMD-Overlay. Intel-GPU ist für PearlHash über den aktuellen SRBMiner-Pfad nicht freigegeben. Prüfe Treiber und Geräteauflistung auf dem Host und im Container, danach die Agent-Konsole. Hardware-spezifische Leistungslimits müssen am Gerät verifiziert werden.
+The base Linux container Compose file does not pass through a GPU. NVIDIA requires the Toolkit and GPU overlay; AMD requires a suitable OpenCL stack and AMD overlay. Intel GPUs are not enabled for PearlHash through the current SRBMiner path. Check drivers and device listings on the host and in the container, then inspect the Agent console. Verify hardware-specific power limits on the actual device.
 
-## Portalwert und Poolwert unterscheiden sich
+## Portal and pool figures differ
 
-Vergleiche denselben Coin, Pool-Worker und Zeitraum. Hashrate und Prognose sind keine Pool-Gutschrift; Pool-Saldo und Wallet-Bestand sind unterschiedliche Werte. Melde einen konkreten Zeitraum und Worker, ohne Token oder private Schlüssel weiterzugeben. [Begriffe und Gebühren](./6-mining-fees.md).
+Compare the same coin, pool worker, and time period. Hashrate and forecasts are not pool credits; a pool balance and wallet holdings are different figures. Report a specific period and worker without sending tokens or private keys. See [terms and fees](./6-mining-fees.md).

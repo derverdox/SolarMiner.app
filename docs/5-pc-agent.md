@@ -1,24 +1,24 @@
 ---
 id: pc-agent
-title: PC-Agent installieren
+title: Install the PC Agent
 sidebar_position: 6
 slug: /pc-agent
-description: CPU- und GPU-Mining auf Windows oder Linux mit lokalem PC-Agent.
+description: Run CPU and GPU mining on Windows or Linux with the local PC Agent.
 ---
 
-# PC-Agent installieren
+# Install the PC Agent
 
-Der PC-Agent hat eine eigene lokale Oberfläche auf Port `8084`. Er kann allein laufen oder von einer SolarMiner Node gesteuert werden. Er enthält einen eingebauten Stratum-Proxy; in der Oberfläche lässt sich alternativ ein externer Proxy im LAN auswählen. Beim ersten Start kann er einen externen Proxy suchen und sonst den eingebauten verwenden. **Ein gestarteter Agent lädt und startet noch keinen Miner.**
+The PC Agent has its own local interface on port `8084`. It can run on its own or be controlled by a SolarMiner Node. It includes an embedded Stratum proxy; you can choose an external proxy on the LAN in the interface instead. On first start it may search for an external proxy and fall back to the embedded one. **Starting the Agent does not download or start a miner.**
 
 ## Windows
 
-Lade `start-agent.bat` aus dem [aktuellen PC-Agent-Release](https://github.com/Solarminer-app/Solar-Miner-Node/releases/latest) und starte es. Der Launcher lädt bei Bedarf den Agent samt privater Java-21-Laufzeit, prüft die bereitgestellten SHA-256-Werte und speichert die Dateien unter `%LOCALAPPDATA%\SolarMiner\PC-Agent`. Er benötigt Internetzugang und Windows PowerShell 5.1. Öffne danach `http://127.0.0.1:8084/`.
+Download `start-agent.bat` from the [latest PC Agent release](https://github.com/Solarminer-app/Solar-Miner-Node/releases/latest) and run it. When needed, the launcher downloads the Agent and a private Java 21 runtime, checks the supplied SHA-256 values, and stores the files under `%LOCALAPPDATA%\SolarMiner\PC-Agent`. It requires internet access and Windows PowerShell 5.1. Then open `http://127.0.0.1:8084/`.
 
-Falls ein Release den Windows-Launcher noch nicht enthält, folge der [Standalone-Anleitung im Quellrepository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/pc-agent/standalone/README.md); sie beschreibt auch den Start der JAR mit vorhandenem Java 21.
+If a release does not yet include the Windows launcher, follow the [standalone guide in the source repository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/pc-agent/standalone/README.md). It also explains how to run the JAR with an existing Java 21 installation.
 
-## Linux-Docker
+## Linux Docker
 
-Das Image ist für Linux `amd64`. Lade [Basis-Compose](/examples/pc-agent.compose.yml) und starte es im eigenen Verzeichnis mit persistentem `./data`:
+The image targets Linux `amd64`. Download the [base Compose file](/examples/pc-agent.compose.yml) and start it in its own directory with persistent `./data`:
 
 ```sh
 mkdir -p solarminer-pc-agent
@@ -29,22 +29,22 @@ docker compose up -d
 docker compose ps
 ```
 
-Öffne `http://<IP-des-Agent-Hosts>:8084/` im LAN. Das Beispiel veröffentlicht `8091/udp` für die lokale Proxy-Suche. Für NVIDIA-GPUs ist das [NVIDIA-Overlay](/examples/pc-agent.nvidia.compose.yml) vorgesehen; es setzt ein funktionsfähiges NVIDIA Container Toolkit auf dem Host voraus:
+Open `http://<AGENT-HOST-IP>:8084/` on your LAN. The example publishes `8091/udp` for local proxy discovery. For NVIDIA GPUs, use the [NVIDIA overlay](/examples/pc-agent.nvidia.compose.yml), which requires a working NVIDIA Container Toolkit on the host:
 
 ```sh
 curl -fL https://docs.solarminer.app/examples/pc-agent.nvidia.compose.yml -o nvidia.yml
 docker compose -f compose.yml -f nvidia.yml up -d
 ```
 
-Für AMD-GPUs brauchst du einen passenden AMDGPU/ROCm-OpenCL-Stack und das [AMD-Overlay aus dem Node-Repository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/pc-agent/docker-compose.pc-agent.amd.yml). Das Intel-Overlay dient derzeit nur der Geräteerkennung, nicht Pearl-Mining. Für XMRig/RandomX beschreibt die [Linux-Docker-Anleitung](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/pc-agent/standalone/DOCKER.md) die optionale Vorbereitung von Huge Pages. Reserviere Host-RAM dafür nur bewusst.
+For AMD GPUs, you need a suitable AMDGPU/ROCm OpenCL stack and the [AMD overlay in the Node repository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/pc-agent/docker-compose.pc-agent.amd.yml). The Intel overlay currently supports device discovery only, not Pearl mining. For XMRig/RandomX, the [Linux Docker guide](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/pc-agent/standalone/DOCKER.md) explains optional Huge Page preparation. Reserve host RAM for this only when you intend to use it.
 
-## Mining einrichten
+## Set up mining
 
-1. Öffne `Mining`. Wähle Monero/CPU oder Pearl/GPU und klicke ausdrücklich auf **Herunterladen & installieren**. Der Agent bezieht XMRig bzw. SRBMiner-MULTI erst dann.
-2. Trage Pool, Auszahlungsadresse bzw. Konto und Worker ein. Prüfe die angezeigte Proxy- und Gebührenroute. Das SolarMiner-Standardauszahlungsziel ist eine eigene, bestätigungspflichtige Wahl: Dabei geht die gesamte Auszahlung an das angezeigte Ziel.
-3. Wähle beim GPU-Pfad nur erkannte, passende Geräte aus. Starte den gewünschten Miner und beobachte dessen Konsole und Poolstatus.
-4. Prüfe angenommene Shares im Poolkonto. Die lokale Ertragsprognose ist eine Schätzung vor Pool-, Miner- und Gebührenabzügen.
+1. Open `Mining`. Choose Monero/CPU or Pearl/GPU and explicitly click **Herunterladen & installieren** (download and install). Only then does the Agent fetch XMRig or SRBMiner-MULTI.
+2. Enter the pool, payout address or account, and worker. Review the displayed proxy and fee route. SolarMiner's default payout target is a separate choice that requires confirmation: choosing it sends the entire payout to the displayed destination.
+3. For the GPU path, select only recognized, suitable devices. Start the desired miner and watch its console and pool status.
+4. Check accepted shares in the pool account. The local revenue forecast is an estimate before pool, miner, and SolarMiner fee deductions.
 
-Monero und Pearl können als getrennte Prozesse gleichzeitig laufen. Pearl wurde vom Betreiber zur Produktion freigegeben; einzelne GPU-/Treiber-/OS-Kombinationen erfordern weiterhin Gerätetests. SRBMiner erhebt für PearlHash zusätzlich eine eigene Miner-Gebühr. Beim Verbinden mit einer Node muss **Node-Steuerung** lokal unter `Hardware` erlaubt werden; einzelne CPU-/GPU-Worker können dort von externer Steuerung ausgenommen werden. Die lokale Agent-Oberfläche gehört nicht ins öffentliche Internet.
+Monero and Pearl can run as separate processes at the same time. The operator has approved Pearl for production, but individual GPU, driver, and OS combinations still require device testing. SRBMiner charges its own additional fee for PearlHash. To connect the Agent to a Node, enable **Node-Steuerung** (Node control) locally under `Hardware`. Individual CPU or GPU workers can be excluded from external control there. Do not expose the local Agent interface to the public internet.
 
-Die vom Nutzer bereitgestellte Compose-Variante mit `latest-beta` und `gpus: all` kann zum Testen dienen. Die hier herunterladbare Basis folgt dem aktuellen stabilen Repository-Compose; verwende das NVIDIA-Overlay nur auf einem Host mit bereitgestelltem GPU-Zugriff.
+The Compose variant supplied for this documentation with `latest-beta` and `gpus: all` can be used for testing. The downloadable base file here follows the current stable repository Compose; use the NVIDIA overlay only on a host with working GPU passthrough.

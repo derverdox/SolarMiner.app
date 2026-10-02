@@ -1,16 +1,16 @@
 ---
 id: setup
-title: Node mit Docker Compose installieren
+title: Install the Node with Docker Compose
 sidebar_position: 3
 slug: /setup
-description: SolarMiner Node, Datenbanken, Core, Proxy und Phoenixd mit einem vollständigen Compose-Beispiel starten.
+description: Start the SolarMiner Node, databases, Core, proxy, and Phoenixd with a complete Compose example.
 ---
 
-# Node mit Docker Compose installieren
+# Install the Node with Docker Compose
 
-Dieses Beispiel richtet eine lokale Node auf einem Linux-Host ein. Es ist eine Kopie der [Compose-Datei aus dem Node-Repository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/compose.yml), Stand 2. Oktober 2026: [Compose-Datei herunterladen](/examples/solarminer-node.compose.yml). Das für diese Dokumentation bereitgestellte Produktionsbeispiel nutzt teils andere Image-Tags und Host-Ports. Vor allem enthält es keine `mariadb-currency-service`, obwohl der Currency-Service diese Datenbank als `MYSQL_URL` erwartet. Die vollständige Datei hier schließt sie ein.
+This example installs a local Node on a Linux host. It is a copy of the [Compose file in the Node repository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/compose.yml), as of October 2, 2026: [download the Compose file](/examples/solarminer-node.compose.yml). The production example supplied for this documentation uses some different image tags and host ports. In particular, it omits `mariadb-currency-service` even though the currency service expects that database in its `MYSQL_URL`. The complete file here includes it.
 
-## 1. Dateien und Geheimnisse vorbereiten
+## 1. Prepare files and secrets
 
 ```sh
 mkdir -p solarminer
@@ -19,21 +19,21 @@ curl -fL https://docs.solarminer.app/examples/solarminer-node.compose.yml -o com
 mkdir -p app/frontend/app app/frontend/mariadb_data app/frontend/influxdb/data app/frontend/influxdb/config app/currency/backend app/currency/mariadb app/phoenixd
 ```
 
-Lege eine `.env` im gleichen Verzeichnis an. Ersetze **alle** Beispielwerte durch eigene lange, zufällige Werte:
+Create a `.env` file in the same directory. Replace **every** example value with your own long, random value:
 
 ```dotenv
-MYSQL_PASSWORD=HIER_EIGENES_PASSWORT
-CURRENCY_DB_PASSWORD=HIER_ANDERES_PASSWORT
-INFLUXDB_ADMIN_TOKEN=HIER_EIGENES_LANGES_TOKEN
+MYSQL_PASSWORD=YOUR_OWN_PASSWORD
+CURRENCY_DB_PASSWORD=A_DIFFERENT_PASSWORD
+INFLUXDB_ADMIN_TOKEN=YOUR_OWN_LONG_TOKEN
 DOCKER_INFLUXDB_INIT_USERNAME=admin
-DOCKER_INFLUXDB_INIT_PASSWORD=HIER_DRITTES_PASSWORT
+DOCKER_INFLUXDB_INIT_PASSWORD=A_THIRD_PASSWORD
 SOLARMINER_UID=1000
 SOLARMINER_GID=1000
 ```
 
-`SOLARMINER_UID` und `SOLARMINER_GID` müssen dem Benutzer gehören, der die persistenten Dateien verwaltet. Die Datei enthält Zugangsdaten: Rechte einschränken und nicht in Git einchecken. Das Beispiel legt Phoenixd-Daten unter `app/phoenixd` ab; sichere dieses Verzeichnis und den Seed besonders sorgfältig.
+`SOLARMINER_UID` and `SOLARMINER_GID` must match the user that manages the persistent files. The file contains credentials: restrict its permissions and do not commit it to Git. The example stores Phoenixd data under `app/phoenixd`; protect backups of that directory and the seed especially carefully.
 
-## 2. Konfiguration prüfen und starten
+## 2. Validate the configuration and start
 
 ```sh
 docker compose config --quiet
@@ -42,21 +42,21 @@ docker compose ps
 docker compose logs --tail=100 frontend core stratum-proxy
 ```
 
-Öffne `http://<IP-des-Hosts>:8080/` im lokalen Netz. Wenn du Host-Port 80 bevorzugst, ändere **nur** beim Service `frontend` die Zuordnung `8080:8080` zu `80:8080`, bevor du startest. Die Node-Anwendung hört im Container weiter auf `8080`.
+Open `http://<HOST-IP>:8080/` on your local network. If you prefer host port 80, change **only** the `frontend` service's mapping from `8080:8080` to `80:8080` before starting. The Node application still listens on `8080` inside the container.
 
-Das Beispiel enthält `frontend-storage-init` zur Berechtigung des Speicherverzeichnisses, eine separate MariaDB für Kurse und einen Healthcheck für InfluxDB. `stratum-proxy` nutzt Host-Networking; Core erreicht seine API über `host.docker.internal:8090`. Der Host und die Firewall müssen diesen lokalen Datenweg zulassen.
+The example includes `frontend-storage-init` to set permissions on the storage directory, a separate MariaDB for exchange rates, and an InfluxDB health check. `stratum-proxy` uses host networking; Core reaches its API through `host.docker.internal:8090`. The host and firewall must permit this local path.
 
-## 3. Einrichtung in der Oberfläche
+## 3. Complete setup in the interface
 
-1. Folge dem Setup der Node und wähle ein passendes PV-Profil. Prüfe live die Werte für Erzeugung, Netzbezug/Einspeisung und Speicher, bevor ein Miner gesteuert wird.
-2. Lege Miner und gegebenenfalls einen Cluster an. Trage Pool, Worker und [Mining-Ziele](./6-mining-fees.md) in der Node ein.
-3. Starte mit konservativen [Automationsregeln](./4-automation-rules.md). Beobachte reale Leistungsaufnahme und Miner-Status.
-4. Vergleiche akzeptierte Shares und Auszahlungen im tatsächlichen Poolkonto. Das Node-Dashboard allein belegt keine Auszahlung.
+1. Follow the Node setup and choose a suitable PV profile. Check live values for generation, grid import/export, and battery before controlling any miner.
+2. Add miners and, if needed, a cluster. Set up the pool, worker, and [mining targets](./6-mining-fees.md) in the Node.
+3. Start with conservative [automation rules](./4-automation-rules.md). Watch actual power draw and miner status.
+4. Compare accepted shares and payouts in the real pool account. The Node dashboard alone does not prove a payout.
 
-## Betrieb, Ports und Backups
+## Operation, ports, and backups
 
-Die mitgelieferte Datei veröffentlicht außer der Oberfläche auch Datenbank-, Influx- und Core-Ports. Binde sie per Firewall an das vertrauenswürdige LAN oder entferne Host-Port-Freigaben, die du nicht brauchst. Stelle die Node und die PC-Agent-Oberfläche nicht direkt ins öffentliche Internet. Die im bereitgestellten Produktionsbeispiel gezeigten JMX-Optionen deaktivieren Authentifizierung und TLS; übernimm sie nicht in eine öffentlich erreichbare Installation.
+Besides the web interface, the supplied file publishes database, InfluxDB, and Core ports. Restrict them to a trusted LAN with a firewall, or remove host port mappings you do not need. Do not expose the Node or PC Agent interface directly to the public internet. The JMX options in the supplied production example disable authentication and TLS; do not carry them into an internet-accessible installation.
 
-Sichere vor Updates mindestens die persistenten Verzeichnisse unter `app/`, die `.env` und den Phoenixd-Seed. Beende oder konsistentiere schreibende Datenbankdienste für eine wiederherstellbare Sicherung; ein einfaches Kopieren während laufender Schreibvorgänge reicht nicht immer. Verwende für einen geplanten Rollout festgelegte Image-Versionen statt beweglicher `latest`-Tags. Nach einem Update: `docker compose pull`, `docker compose up -d`, Logs und Poolbetrieb prüfen.
+Before upgrades, back up at least the persistent directories under `app/`, the `.env` file, and the Phoenixd seed. Stop or properly snapshot writing database services for a restorable backup; copying files during active writes may not suffice. Pin image versions for planned rollouts rather than relying on moving `latest` tags. After an update, run `docker compose pull` and `docker compose up -d`, then check logs and actual pool operation.
 
-Fehler beim Start? [Fehlersuche](./9-troubleshooting.md). Für CPU/GPU-Mining auf einem anderen Rechner: [PC-Agent](./5-pc-agent.md).
+Having trouble starting? See [troubleshooting](./9-troubleshooting.md). For CPU/GPU mining on another computer, see the [PC Agent](./5-pc-agent.md).

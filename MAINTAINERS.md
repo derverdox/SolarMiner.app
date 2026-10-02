@@ -2,7 +2,7 @@
 
 Stand: 2. Oktober 2026. Diese Datei ist für die Pflege der öffentlichen Seiten; sie ist keine Produktzusage.
 
-Die deutschen Seiten unter `docs/` und die englischen Gegenstücke unter `i18n/en/docusaurus-plugin-content-docs/current/` müssen bei inhaltlichen Änderungen gemeinsam aktualisiert werden. IDs, Slugs, Reihenfolge und interne Links bleiben je Seitenpaar gleich. Der GitHub-Actions-Build baut beide Sprachen; keine generierten Docusaurus-Dateien einchecken.
+Die englischen Seiten unter `docs/` und die deutschen Gegenstücke unter `i18n/de/docusaurus-plugin-content-docs/current/` müssen bei inhaltlichen Änderungen gemeinsam aktualisiert werden. IDs, Slugs, Reihenfolge und interne Links bleiben je Seitenpaar gleich. Der GitHub-Actions-Build baut beide Sprachen; keine generierten Docusaurus-Dateien einchecken.
 
 ## Quellen und Entscheidungen
 

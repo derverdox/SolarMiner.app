@@ -1,31 +1,31 @@
 ---
 id: pv-connection
-title: PV-Anlage verbinden
+title: Connect your PV system
 sidebar_position: 4
 slug: /pv-connection
-description: PV-Profil auswählen, Messwerte prüfen und eigene Modbus- oder REST-Profile importieren.
+description: Select a PV profile, verify measurements, and import your own Modbus or REST profiles.
 ---
 
-# PV-Anlage verbinden
+# Connect your PV system
 
-Die Node benötigt verlässliche Messwerte, bevor sie einen Miner nach PV-Überschuss regeln kann. Benutze möglichst Zählerwerte am Netzanschlusspunkt sowie Erzeugung und gegebenenfalls Batterie-SoC. Prüfe Einheiten und Vorzeichen mit einer bekannten Situation: Einspeisung bei Sonne, Netzbezug bei hoher Hauslast.
+The Node needs dependable measurements before it can regulate a miner according to PV surplus. Where possible, use readings from the meter at the grid connection point, along with generation and, if applicable, battery state of charge (SoC). Check units and signs in a known situation: grid export in sunshine and grid import under high household load.
 
-## Profil wählen und testen
+## Choose and test a profile
 
-1. Öffne das Setup der Node oder die PV-Konfiguration unter `Konfiguration → PV`.
-2. Suche im lokalen oder Community-Katalog nach deinem Gerät und wähle das passende Protokoll. Die Oberfläche bietet REST, Modbus TCP, Modbus RTU, MQTT und WebSocket.
-3. Trage die lokale Geräteadresse und erforderliche Zugangsdaten ein. Die Node muss das Ziel aus ihrem Container-Netz erreichen können; `localhost` würde dort den Container selbst bezeichnen.
-4. Nutze Vorschau/Live-Test. Prüfe jede für die Regel verwendete Größe auf plausible Werte, richtige Einheit und Vorzeichen. Ein erfolgreicher Verbindungsaufbau allein bestätigt die Messwerte nicht.
-5. Speichere das Profil und beobachte den Live-Verlauf, bevor du eine Automationsregel aktivierst.
+1. Open the Node setup or the PV section under `Configuration → PV`.
+2. Search the local or community catalog for your device and select the appropriate protocol. The interface offers REST, Modbus TCP, Modbus RTU, MQTT, and WebSocket.
+3. Enter the local device address and any required credentials. The Node must reach the target from its container network; `localhost` would refer to the container itself.
+4. Use preview or live test. Check every value used by a rule for plausible readings, correct units, and the right sign. A successful connection by itself does not validate the measurements.
+5. Save the profile and observe the live values over time before enabling an automation rule.
 
-## Eigenes Profil
+## Create your own profile
 
-Die Profilansicht kann JSON-Profile importieren und exportieren. Für REST ordnest du je Messgröße einen Pfad, eine HTTP-Methode, den Wertpfad in der Antwort sowie Typ, Skalierungsfaktor und gegebenenfalls eine Formel zu. Bei Modbus sind Startadresse, Registeranzahl, Operation und Byte-Reihenfolge relevant. Eine Registerliste vom Hersteller ist erforderlich; gleiche Modellnamen können abweichende Firmware-Register haben.
+The profile interface can import and export JSON profiles. For REST, map each measurement to an endpoint path, HTTP method, value path in the response, data type, scale factor, and, if needed, a formula. For Modbus, the start address, register count, operation, and byte order matter. You need the manufacturer's register list; devices with the same model name may use different registers across firmware versions.
 
-Der [SolarMiner Configurator](https://github.com/derverdox/solarminer-configurator) hilft beim Erstellen und Live-Test eigener Profile. Importiere dessen Export in die Node und teste dort erneut: Configurator und Node verwenden ein gemeinsames Serialisierungsformat, aber ihre Laufzeitumgebungen und Erreichbarkeit können abweichen.
+The [SolarMiner Configurator](https://github.com/derverdox/solarminer-configurator) helps create and live-test custom profiles. Import its export into the Node and test again there: Configurator and Node share the serialization format, but may differ in runtime environment and network access.
 
-Für serielle Modbus-RTU-Geräte muss der Host das Gerät in den Node-Container durchreichen. Die [RTU-Docker-Anleitung](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/docs/MODBUS_RTU_DOCKER.md) beschreibt die zusätzlichen Schritte. Bei MQTT und WebSocket müssen Broker bzw. Endpunkt sowie Topic und Nachrichtenschema zur gewählten Vorlage passen.
+For serial Modbus RTU devices, pass the host device into the Node container. The [RTU Docker guide](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/docs/MODBUS_RTU_DOCKER.md) describes the extra steps. For MQTT and WebSocket, the broker or endpoint, topic, and message format must match the selected template.
 
-:::warning Messwerte zuerst prüfen
-Ein falsch skaliertes oder umgekehrt vorzeichenbehaftetes Netzsignal kann Miner trotz Netzbezug starten. Teste bei wechselnder Erzeugung und Last, bevor du die [Automationsregeln](./4-automation-rules.md) einschaltest.
+:::warning Verify readings before automation
+An incorrectly scaled grid reading or reversed import/export sign can start miners while you are buying electricity from the grid. Test during changing generation and household load before enabling [automation rules](./4-automation-rules.md).
 :::

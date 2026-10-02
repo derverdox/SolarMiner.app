@@ -1,41 +1,41 @@
 ---
 id: intro
-title: SolarMiner verstehen
+title: Understanding SolarMiner
 sidebar_position: 1
 slug: /
-description: Was SolarMiner lokal steuert und wo Nutzer und Partner beginnen.
+description: What SolarMiner controls locally and where users and partners should begin.
 ---
 
-# SolarMiner verstehen
+# Understanding SolarMiner
 
-SolarMiner verbindet Messwerte einer Photovoltaikanlage mit Mining-Hardware. Die selbst betriebene **Node** zeigt PV-Anlagen, Miner, Mining-Ziele und Finanzen an und kann Miner anhand von Regeln steuern. Ein eigener **PC-Agent** betreibt CPU- und GPU-Miner auf einem Rechner. Das **Partnerportal** verwaltet Referrals und zeigt dem jeweiligen Partner seine zugeordneten Pool-Daten.
+SolarMiner connects data from a photovoltaic (PV) system to mining hardware. The self-hosted **Node** displays PV sites, miners, mining targets, and financial data, and can control miners using rules. A separate **PC Agent** runs CPU and GPU miners on a computer. The **partner portal** manages referrals and shows partners the pool data assigned to them.
 
-## Welcher Einstieg passt zu dir?
+## Where should you start?
 
-| Ziel | Einstieg |
+| Goal | Start here |
 | --- | --- |
-| PV-Anlage und ASICs mit einer Node steuern | [Voraussetzungen](./2-requirements.md) → [Node installieren](./0-setup.md) → [PV anbinden](./3-pv-connection.md) |
-| Auf einem PC Monero oder Pearl minen | [PC-Agent installieren](./5-pc-agent.md); die Node ist für den lokalen Standalone-Betrieb nicht erforderlich |
-| Mining-Erlöse einem Pool oder Wallet zuordnen | [Mining-Ziele und Gebühren](./6-mining-fees.md) |
-| SolarMiner als Referrer empfehlen | [Partnerportal](./7-partner-portal.md) |
+| Control a PV system and ASICs with a Node | [Requirements](./2-requirements.md) → [Install the Node](./0-setup.md) → [Connect your PV system](./3-pv-connection.md) |
+| Mine Monero or Pearl on a PC | [Install the PC Agent](./5-pc-agent.md); a Node is not required for local standalone operation |
+| Assign mining revenue to a pool or wallet | [Mining targets and fees](./6-mining-fees.md) |
+| Recommend SolarMiner as a referrer | [Partner portal](./7-partner-portal.md) |
 
-## So arbeiten die Komponenten zusammen
+## How the components work together
 
 ```text
-PV-Gerät / Smart Meter ──► Node ──► Core ──► ASIC oder PC-Agent
+PV device / smart meter ──► Node ──► Core ──► ASIC or PC Agent
                             │                    │
-                            └── lokale Oberfläche │
+                            └── local interface   │
                                                  ▼
-                                  Stratum-Proxy ──► Nutzer-Pool
-                                         └─────────► Gebühren-Ziel
+                                  Stratum proxy ──► user pool
+                                         └─────────► fee target
 ```
 
-Die Node, Core, Datenbanken, Phoenixd und der Stratum-Proxy laufen beim Betreiber. Der Proxy fragt Gebührenziele beim zentralen Fee-Backend ab; die Node kann eine Verbindung zum zentralen Lightning-Dienst und bei aktivierter Telemetrie zum Portal aufbauen. „Lokal betrieben“ bedeutet daher **nicht**, dass die gesamte Installation offline arbeitet. Der PC-Agent kann einen eingebauten oder einen externen Proxy verwenden. [Mehr zu Datenflüssen und Einwilligung](./8-data-privacy.md).
+The Node, Core, databases, Phoenixd, and Stratum proxy run on the operator's infrastructure. The proxy requests fee targets from the central fee backend. The Node can connect to the central Lightning service and, when telemetry is enabled, to the portal. **Self-hosted** therefore does not mean that the entire installation works offline. The PC Agent can use its embedded proxy or an external one. [Learn about data flows and consent](./8-data-privacy.md).
 
-SolarMiner verteilt einen konfigurierten Anteil der Mining-Arbeit als Entwicklergebühr. Die tatsächlich beim Nutzer oder Partner gutgeschriebenen Beträge hängen von akzeptierten Shares und der Abrechnung des jeweiligen Pools ab. Ein angezeigter Hashrate-Wert oder ein konfiguriertes Ziel ist noch kein Nachweis für eine Gutschrift.
+SolarMiner directs a configured share of mining work to developer-fee targets. The amounts actually credited to a user or partner depend on accepted shares and the accounting of the relevant pool. A displayed hashrate or a configured target does not establish that a credit has been earned.
 
-## Funktionsstand
+## Current capabilities
 
-Die Node unterstützt Braiins OS, bestimmte Antminer mit Stock-Firmware und angebundene PC-Agents über unterschiedliche Steuerwege. Funktionen wie stufenlose Leistungsregelung hängen vom konkreten Gerät, dessen Firmware und verfügbaren Messwerten ab. Der PC-Agent bietet Monero/RandomX für CPU und Pearl/PearlHash für unterstützte AMD- und NVIDIA-GPUs; diese Pfade benötigen eine passende Miner-Installation und einen geladenen Gebührenweg. Prüfe vor dem Betrieb die [Kompatibilität](./2-requirements.md).
+The Node supports Braiins OS, certain Antminers with stock firmware, and connected PC Agents through different control paths. Capabilities such as gradual power adjustment depend on the specific device, its firmware, and available measurements. The PC Agent offers Monero/RandomX for CPUs and Pearl/PearlHash for supported AMD and NVIDIA GPUs. These paths require the appropriate miner to be installed and a loaded fee route. Check [compatibility](./2-requirements.md) before use.
 
-Der Quellcode der Node steht unter AGPLv3; Name und Logo unterliegen zusätzlichen Markenbedingungen. Für Änderungen und Weitergabe gelten die Bedingungen im [Node-Repository](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/TRADEMARK.md).
+The Node source code is licensed under AGPLv3; the name and logo have additional trademark terms. See the [Node repository's terms](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/TRADEMARK.md) before modifying or distributing it.

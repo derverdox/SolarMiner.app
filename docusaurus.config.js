@@ -1,4 +1,4 @@
-const isEnglish = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
+const isEnglish = (process.env.DOCUSAURUS_CURRENT_LOCALE ?? 'en') === 'en';
 
 const config = {
   title: isEnglish ? 'SolarMiner Documentation' : 'SolarMiner Dokumentation',
@@ -14,8 +14,8 @@ const config = {
     },
   },
   i18n: {
-    defaultLocale: 'de',
-    locales: ['de', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'de'],
   },
   organizationName: 'derverdox',
   projectName: 'solar-miner-docs',
@@ -25,7 +25,7 @@ const config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/', // Dokumentation direkt unter der Domain
+          routeBasePath: '/', // Docs at the root of each locale
           sidebarPath: require.resolve('./sidebars.js'),
         },
         blog: false,

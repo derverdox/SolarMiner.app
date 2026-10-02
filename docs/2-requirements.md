@@ -1,34 +1,34 @@
 ---
 id: requirements
-title: Voraussetzungen und Kompatibilität
+title: Requirements and compatibility
 sidebar_position: 2
 slug: /requirements
-description: Voraussetzungen für Node, ASICs, PV-Geräte und den PC-Agent.
+description: Requirements for the Node, ASICs, PV devices, and PC Agent.
 ---
 
-# Voraussetzungen und Kompatibilität
+# Requirements and compatibility
 
-## Node auf einem eigenen Rechner
+## Node on your own computer
 
-- Linux-Host mit Docker Engine und Docker Compose Plugin. Das mitgelieferte Compose-Beispiel enthält mehrere Java-Dienste, zwei MariaDB-Instanzen, InfluxDB und Phoenixd. Plane genügend RAM und SSD-Speicher ein und beobachte die tatsächliche Auslastung; eine für alle Anlagen verlässliche Mindestgröße ist nicht nachgewiesen.
-- Der Host muss die PV-Geräte und Miner im lokalen Netz erreichen. `8080/tcp` ist die Standardoberfläche der Node. `8082/tcp` ist Core, `3333/tcp` Stratum und `8090/tcp` die Proxy-API. Diese lokalen Steuerports gehören in ein vertrauenswürdiges Netz.
-- Für die Gebührenziele braucht der Proxy Zugriff auf `fee.solarminer.app`. Weitere Internetverbindungen hängen von aktivierten Funktionen ab, etwa Kursen, Community-Profilen, Lightning und freiwilliger Telemetrie.
+- A Linux host with Docker Engine and the Docker Compose plugin. The supplied Compose example contains several Java services, two MariaDB instances, InfluxDB, and Phoenixd. Plan for sufficient RAM and SSD space and monitor actual usage; no reliable minimum size has been established for every installation.
+- The host must reach the PV devices and miners on the local network. `8080/tcp` is the Node's default web interface, `8082/tcp` is Core, `3333/tcp` is Stratum, and `8090/tcp` is the proxy API. Keep these local control ports on a trusted network.
+- The proxy needs access to `fee.solarminer.app` to obtain fee targets. Other internet connections depend on enabled features, such as exchange rates, community profiles, Lightning, and optional telemetry.
 
-## Mining-Hardware
+## Mining hardware
 
-| Gerät | Aktueller Steuerweg | Grenze |
+| Device | Current control path | Limitation |
 | --- | --- | --- |
-| Braiins OS ASIC | Native Braiins-API über Core | Unterstützte Modelle und Firmware-Versionen am Gerät prüfen; eine pauschale Zusage für alle ASICs gibt es nicht. |
-| Bestimmte Antminer mit Stock-Firmware | CGMiner/CGI über Core, Stratum über Proxy | Leistungssteuerung und Rückmeldungen unterscheiden sich nach Modell/Firmware; vor Ort testen. |
-| CPU mit PC-Agent | XMRig / Monero (RandomX) | Miner muss in der lokalen Agent-Oberfläche ausdrücklich installiert und konfiguriert werden. |
-| AMD- oder NVIDIA-GPU mit PC-Agent | SRBMiner-MULTI / Pearl (PearlHash) | Passender Treiber und nutzbarer GPU-Zugriff nötig; Intel-GPU ist für diesen Pfad derzeit nicht freigegeben. |
+| Braiins OS ASIC | Native Braiins API through Core | Check model and firmware support on the device; support is not guaranteed for every ASIC. |
+| Certain Antminers with stock firmware | CGMiner/CGI through Core, Stratum through the proxy | Power control and feedback vary by model and firmware; test on the actual device. |
+| CPU with PC Agent | XMRig / Monero (RandomX) | Install and configure the miner explicitly in the local Agent interface. |
+| AMD or NVIDIA GPU with PC Agent | SRBMiner-MULTI / Pearl (PearlHash) | Requires a suitable driver and usable GPU access; Intel GPUs are not enabled for this path. |
 
-Ein erfolgreicher Start eines Containers beweist weder eine wirksame Leistungsregelung noch akzeptierte Pool-Shares. Kontrolliere beides am realen Miner und im Pool.
+A container starting successfully proves neither effective power control nor accepted pool shares. Verify both on the real miner and at the pool.
 
-## PV-Daten
+## PV data
 
-Die Node kann PV-Profile für Modbus TCP, Modbus RTU, REST, MQTT und WebSocket verwalten. Ein vorhandenes Profil ist nur ein Ausgangspunkt: Register, Einheiten, Vorzeichen und Geräteerreichbarkeit müssen zur eigenen Anlage passen. Für Modbus RTU ist zusätzlicher serieller Hostzugriff nötig. [PV-Anbindung einrichten](./3-pv-connection.md).
+The Node can manage PV profiles for Modbus TCP, Modbus RTU, REST, MQTT, and WebSocket. An existing profile is only a starting point: registers, units, signs, and device connectivity must match your installation. Modbus RTU also requires access to the host's serial device. [Set up the PV connection](./3-pv-connection.md).
 
-## PC-Agent ohne Node
+## PC Agent without a Node
 
-Für den Standalone-Agent gibt es einen Windows-Launcher mit privatem Java-21-Runtime-Download sowie ein Linux-`amd64`-Docker-Image. GPU-Mining im Linux-Container braucht die [passende Host- und Compose-Konfiguration](./5-pc-agent.md). Die Oberfläche auf `8084/tcp` sollte nur lokal bzw. im vertrauenswürdigen LAN erreichbar sein.
+The standalone Agent has a Windows launcher that downloads a private Java 21 runtime and a Linux `amd64` Docker image. GPU mining in the Linux container needs the [appropriate host and Compose configuration](./5-pc-agent.md). The interface on `8084/tcp` should only be reachable locally or from a trusted LAN.

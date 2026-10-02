@@ -2,7 +2,7 @@
 
 As of October 2, 2026. This file supports maintenance of the public pages; it is not a product guarantee.
 
-Update the German pages under `docs/` and their English counterparts under `i18n/en/docusaurus-plugin-content-docs/current/` together whenever behavior or wording changes. Keep IDs, slugs, ordering, and internal links aligned for each pair of pages. GitHub Actions builds both locales; do not commit generated Docusaurus files.
+Update the English pages under `docs/` and their German counterparts under `i18n/de/docusaurus-plugin-content-docs/current/` together whenever behavior or wording changes. Keep IDs, slugs, ordering, and internal links aligned for each pair of pages. GitHub Actions builds both locales; do not commit generated Docusaurus files.
 
 ## Sources and decisions
 

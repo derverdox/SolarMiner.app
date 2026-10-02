@@ -1,23 +1,23 @@
 ---
 id: automation-rules
-title: Automationsregeln
+title: Automation rules
 sidebar_position: 5
 slug: /automation-rules
-description: Cluster-Modi, Leistungsziele und Simulation sicher einrichten.
+description: Configure cluster modes, power targets, and simulations with care.
 ---
 
-# Automationsregeln
+# Automation rules
 
-Die Node konfiguriert einen Mining-Cluster über **Betriebsmodi**. Jeder Modus hat Start- und Stop-Bedingungen, Aktionen und Sperrzeiten für Laufzeit, Pause und Leistungswechsel. Die Reihenfolge der Modi ist relevant: Der erste passende Modus wird ausgewählt. Der mitgelieferte Standard legt einen Batterie-Schutzmodus vor die Überschussregelung.
+The Node configures a mining cluster through **operating modes**. Each mode has start and stop conditions, actions, and lock times for running, idling, and power changes. Mode order matters: the first matching mode is selected. The supplied default places a battery protection mode ahead of surplus tracking.
 
-## In der Oberfläche einrichten
+## Configure rules in the interface
 
-1. Öffne die PV-Anlage → `Mining` → deinen Cluster → `Konfiguration`.
-2. Wähle für die Start- und Stop-Bedingungen Messgröße, Vergleich, Schwellwert und gegebenenfalls ein Zeitfenster mit `LIVE` oder einer Aggregation wie `MEDIAN`.
-3. Wähle eine Aktion: pausieren, fortsetzen oder ein Leistungsziel setzen. Ein dynamischer Zielwert rechnet eine Messgröße mit Multiplikator und Offset in Watt um. Bei einem Wert in kW ergibt der Multiplikator `1000` Watt pro kW; ein kleinerer Wert lässt Reserve.
-4. Setze Mindestlaufzeit, Mindestpause und Sperre für Leistungsänderungen. Diese Zeiten vermeiden hektische Wechsel; sie sind kein Ersatz für Geräteschutz oder einen passenden Leistungsmesser.
-5. Nutze die eingebaute Simulation mit Presets oder historischen Daten, speichere und beobachte anschließend den echten Betrieb am Zähler und Miner.
+1. Open the PV site → `Mining` → your cluster → `Configuration`.
+2. For each start and stop condition, choose a measurement, comparison, threshold, and, if appropriate, a time window using `LIVE` or an aggregation such as `MEDIAN`.
+3. Choose an action: pause, resume, or set a power target. A dynamic target converts a measurement into watts using a multiplier and offset. For a value in kW, a multiplier of `1000` produces watts; a lower multiplier leaves some headroom.
+4. Set minimum run time, minimum idle time, and a lock time for power changes. These settings reduce frequent switching; they do not replace device protection or a suitable power meter.
+5. Use the built-in simulation with presets or historical data, save the rules, and then watch real operation at the meter and miner.
 
-Die Standardkonfiguration verwendet `POTENTIAL_PV_SURPLUS` sowie Batterie-SoC. Sie startet den Überschussmodus erst bei positivem, über 30 Minuten geglättetem Überschuss und hohem SoC; unter 90 % SoC greift der vorrangige Stoppmodus. Die Standardwerte sind ein Ausgangspunkt, keine Empfehlung für jede Anlage. Die tatsächlichen Werte findest du in der Cluster-Konfiguration und im [Quellcode](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/src/main/java/de/verdox/pv_miner/miningcontroller/dsl/DefaultCluster.java).
+The default configuration uses `POTENTIAL_PV_SURPLUS` and battery SoC. It enters surplus tracking only with positive surplus smoothed over 30 minutes and a high SoC; below 90% SoC, the higher-priority stop mode takes effect. These defaults are a starting point, not a recommendation for every site. Find the exact values in the cluster configuration and [source code](https://github.com/Solarminer-app/Solar-Miner-Node/blob/main/src/main/java/de/verdox/pv_miner/miningcontroller/dsl/DefaultCluster.java).
 
-`POTENTIAL_PV_SURPLUS` berücksichtigt den aktuellen Miner-Verbrauch, damit ein Miner seine eigene Startbedingung nicht unmittelbar zunichtemacht. Prüfe dennoch am Netzanschlusspunkt, ob die Regel Einspeisung, Bezug und Batterie wie gewünscht behandelt. Nur Geräte mit passendem Steuerweg können ein Leistungsziel zuverlässig umsetzen; andere können eventuell nur gestartet oder gestoppt werden. [Kompatibilität](./2-requirements.md) und [Fehlersuche](./9-troubleshooting.md).
+`POTENTIAL_PV_SURPLUS` accounts for current miner consumption so that starting a miner does not immediately cancel its own start condition. Even so, check at the grid connection point whether the rule handles export, import, and the battery as intended. Only devices with a suitable control path can reliably apply a power target; other devices may only support start and stop. See [compatibility](./2-requirements.md) and [troubleshooting](./9-troubleshooting.md).
