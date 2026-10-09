@@ -1,6 +1,7 @@
 services:
   pc-agent:
     image: verdox/solar-miner-pc-agent:latest
+    #image: verdox/solar-miner-pc-agent:latest-beta For beta builds
     container_name: solarminer-pc-agent
     restart: unless-stopped
     # The image includes a local proxy. The UI defaults to an external proxy;
@@ -13,7 +14,18 @@ services:
       - IPC_LOCK
     ulimits:
       memlock: -1
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
     volumes:
       - ./data:/data
     environment:
-      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=70.0
+      JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=70.0 -Djava.awt.headless=true
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - curl --fail --silent http://127.0.0.1:8084/api/agent/external/identity >/dev/null || exit 1
+      interval: 30s
+      timeout: 5s
+      start_period: 45s
+      retries: 3
