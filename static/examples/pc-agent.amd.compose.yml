@@ -1,0 +1,13 @@
+services:
+  pc-agent:
+    # The host must provide a supported AMDGPU/ROCm OpenCL runtime.
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    # CPU package energy is exposed by the host kernel through amd-rapl, when available.
+    # Docker's default /sys view may hide this class; mount it read-only for telemetry.
+    volumes:
+      - /sys/class/powercap:/sys/class/powercap:ro
+      - /sys/devices/virtual/powercap:/sys/devices/virtual/powercap:ro
+    security_opt:
+      - seccomp=unconfined
