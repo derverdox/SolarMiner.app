@@ -2,6 +2,14 @@
 
 Stand: 2. Oktober 2026. Diese Datei ist für die Pflege der öffentlichen Seiten; sie ist keine Produktzusage.
 
+Nachtrag 17. Oktober 2026: Das PC-Agent-Basis-Compose-Beispiel wurde erneut
+direkt mit `pc-agent/docker-compose.pc-agent.yml` abgeglichen. Es verwendet nun
+Host-Networking und übergibt `PC_AGENT_GPU`; die NVIDIA- und AMD-Overlays sind
+unverändert mit dem PC-Agent-Repository identisch. Das neue gemeinsame
+`.env`-Beispiel und beide Sprachfassungen erklären Stable/Beta, GPU-Overlay
+und den manuellen `pull`/`up -d`-Updatepfad. Syntax und Drift wurden lokal
+geprüft; ein echter Docker-Pull oder GPU-Hosttest wurde nicht ausgeführt.
+
 Die englischen Seiten unter `docs/` und die deutschen Gegenstücke unter `i18n/de/docusaurus-plugin-content-docs/current/` müssen bei inhaltlichen Änderungen gemeinsam aktualisiert werden. IDs, Slugs, Reihenfolge und interne Links bleiben je Seitenpaar gleich. Der GitHub-Actions-Build baut beide Sprachen; keine generierten Docusaurus-Dateien einchecken.
 
 ## Quellen und Entscheidungen

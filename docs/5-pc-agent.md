@@ -68,13 +68,15 @@ curl -fL https://raw.githubusercontent.com/Solarminer-app/pc-agent/beta/standalo
 sh install-docker.sh --channel beta --gpu none
 ```
 
-Open `http://<AGENT-HOST-IP>:8084/` on your LAN. The example publishes `8092/udp` for external proxy heartbeat discovery. For NVIDIA GPUs, use the [NVIDIA overlay](/examples/pc-agent.nvidia.compose.yml), which requires a working NVIDIA Container Toolkit on the host:
+Open `http://<AGENT-HOST-IP>:8084/` on your trusted LAN. The current Compose example uses host networking so the Agent's UDP discovery can reach the physical LAN; allow TCP `8084` and UDP `8092`/`8093` only on that LAN. For NVIDIA GPUs, use the [NVIDIA overlay](/examples/pc-agent.nvidia.compose.yml), which requires a working NVIDIA Container Toolkit on the host:
 
 ```sh
 sh install-docker.sh --gpu nvidia
 ```
 
 Keep `--channel beta` in that command when you selected Beta.
+
+The installer stores the selected image and GPU type in `.env` inside its installation directory. Its Beta directory is separate from Stable. Leave `.env` in place when updating: a later `docker compose pull` will then keep the selected channel. The dashboard's Docker update instructions also set the image explicitly, including for older installations that lack `.env`.
 
 For AMD GPUs, you need a suitable AMDGPU/ROCm OpenCL stack and the [AMD overlay](/examples/pc-agent.amd.compose.yml):
 
@@ -83,6 +85,22 @@ sh install-docker.sh --gpu amd
 ```
 
 Keep `--channel beta` in that command when you selected Beta.
+
+### Manual Compose setup and updates
+
+If you use the downloadable examples directly, save the [base Compose file](/examples/pc-agent.compose.yml) as `compose.yml` and the [environment example](/examples/pc-agent.env.example) as `.env` in the same directory. Use separate directories for Stable and Beta so their `./data` mounts stay separate. Set `PC_AGENT_IMAGE` to `verdox/solar-miner-pc-agent:latest-beta` for Beta; keep `:latest` for Stable. Set `PC_AGENT_GPU` to `none`, `nvidia`, or `amd`. For a GPU, also save the matching overlay as `nvidia.yml` or `amd.yml` and include it in **both** commands:
+
+```sh
+# No GPU overlay; run in the directory containing compose.yml and .env
+docker compose -f compose.yml pull pc-agent
+docker compose -f compose.yml up -d pc-agent
+
+# NVIDIA example; use amd.yml instead for AMD
+docker compose -f compose.yml -f nvidia.yml pull pc-agent
+docker compose -f compose.yml -f nvidia.yml up -d pc-agent
+```
+
+`pull` downloads the selected image; `up -d` recreates the service with that image while the `./data` bind mount keeps Agent settings. `docker compose restart` alone does not apply a new image. The Compose examples are snapshots of the PC Agent repository; refresh them when a release changes the deployment configuration. Custom Compose setups must use their own filenames and volume paths.
 
 The bootstrap deliberately does not install or replace GPU or kernel drivers. NVIDIA therefore needs a working NVIDIA driver and NVIDIA Container Toolkit; AMD needs working `/dev/kfd` and `/dev/dri` devices from its AMDGPU/ROCm host stack. The Intel overlay currently supports device discovery only, not Pearl mining. For XMRig/RandomX, the [Linux Docker guide](https://github.com/Solarminer-app/pc-agent/blob/main/standalone/DOCKER.md) explains optional Huge Page preparation. Reserve host RAM for this only when you intend to use it.
 
